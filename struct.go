@@ -1,17 +1,18 @@
 package piscine
 
-import "fmt"
-
-Type SystemCombat struct {
-	selection string
+type Monster struct {
+	name         string
+	hp_max       int
+	current_hp   int
+	attack_point int
 }
 
-Type Character struct {
-	genre string
-	nom string
-	classe string
-	niveau string
-	points de vie maximum string
-	points de vie actuels string
-	inventaire string
+type Character struct {
+	genre      string
+	name       string
+	classe     string
+	level      int
+	hp_max     int
+	current_hp int
+	inventory  string
 }
