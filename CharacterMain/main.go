@@ -2,15 +2,15 @@ package main
 
 import "fmt"
 
-func initCharacter(genre string, name string, classe string, level int, hp_max int, current_hp int, inventory mntap[string]int) Character {
+func initCharacter(genre string, name string, classe string, level int, hp_max int, current_hp int, inventory map[string]int) Character {
 	return Character{
-		genre:		genre,
-		name:		name,
-		classe:		classe,
-		level:		level,
-		hp_max:		hp_max,
-		current_hp:	current_hp,
-		inventory:	inventory,
+		genre:      genre,
+		name:       name,
+		classe:     classe,
+		level:      level,
+		hp_max:     hp_max,
+		current_hp: current_hp,
+		inventory:  inventory,
 	}
 }
 
