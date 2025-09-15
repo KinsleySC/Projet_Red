@@ -14,5 +14,5 @@ type Character struct {
 	level      int
 	hp_max     int
 	current_hp int
-	inventory  string
+	inventory  map[string]int
 }
