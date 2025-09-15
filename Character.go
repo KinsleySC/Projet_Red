@@ -1,4 +1,4 @@
-package piscine
+package main
 
 type Character struct {
 	genre      string
