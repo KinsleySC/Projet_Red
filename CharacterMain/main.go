@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-func initCharacter(genre string, name string, classe string, level int, hp max int, current_hp int, inventory mntap[string]int) Character {
+func initCharacter(genre string, name string, classe string, level int, hp_max int, current_hp int, inventory mntap[string]int) Character {
 	return Character{
 		genre:		genre,
 		name:		name,
