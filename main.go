@@ -25,6 +25,29 @@ func displayInfo(c Character) {
 	}
 }
 
+func accessInventory(c Character) {
+	fmt.Println("Objets dans l'inventaire :")
+	for item, qty := range c.Inventory {
+		fmt.Printf("%s : %d\n", item, qty)
+	}
+}
+
+func takePot(c *Character) {
+	qty, exists := c.Inventory["Potion"]
+	if !exists || qty <= 0 {
+		fmt.Println("Vous n'avez pas de potion !")
+		return
+	}
+	c.Inventory["Potion"]--
+	if c.Inventory["Potion"] == 0 {
+		delete(c.Inventory, "Potion")
+	}
+	c.CurrentHp += 50
+	if c.CurrentHp > c.HpMax {
+		c.CurrentHp = c.HpMax
+	}
+	fmt.Printf("Vous avez utilisé une potion. PV actuels : %d / %d\n", c.CurrentHp, c.HpMax)
+}
 func main() {
 	var playerName string
 	fmt.Print("Entrez le nom de votre personnage : ")
@@ -35,4 +58,6 @@ func main() {
 	c1 := initCharacter("Homme", playerName, "Elfe", 1, 100, 40, inv)
 
 	displayInfo(c1)
+
+	accessInventory(c1)
 }
