@@ -46,7 +46,7 @@ func takePot(c *Character) {
 	if c.CurrentHp > c.HpMax {
 		c.CurrentHp = c.HpMax
 	}
-	fmt.Printf("Vous avez utilisé une potion. PV actuels : %d / %d\n", c.CurrentHp, c.HpMax)
+	fmt.Printf("")
 }
 func main() {
 	var playerName string
