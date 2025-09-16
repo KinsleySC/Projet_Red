@@ -14,6 +14,17 @@ func initCharacter(genre, name, classe string, level, hpMax, currentHp int, inve
 	}
 }
 
+func displayInfo(c Character) {
+	fmt.Println("Nom :", c.Name)
+	fmt.Println("Classe :", c.Classe)
+	fmt.Println("Niveau :", c.Level)
+	fmt.Printf("PV : %d / %d\n", c.CurrentHp, c.HpMax)
+	fmt.Println("Inventaire :")
+	for item, qty := range c.Inventory {
+		fmt.Printf("%s : %d\n", item, qty)
+	}
+}
+
 func main() {
 	var playerName string
 	fmt.Print("Entrez le nom de votre personnage : ")
@@ -23,13 +34,5 @@ func main() {
 
 	c1 := initCharacter("Homme", playerName, "Elfe", 1, 100, 40, inv)
 
-	fmt.Println("Nom :", c1.Name)
-	fmt.Println("Classe :", c1.Classe)
-	fmt.Println("Niveau :", c1.Level)
-	fmt.Println("PV :", c1.CurrentHp, "/", c1.HpMax)
-	fmt.Println("Inventaire :")
-	for item, qty := range c1.Inventory {
-		fmt.Printf("%s : %d\n", item, qty)
-	}
-
+	displayInfo(c1)
 }
