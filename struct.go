@@ -1,7 +1,5 @@
 package piscine
 
-import "fmt"
-
-Type SystemCombat struct {
+type SystemCombat struct {
 	selection string
 }

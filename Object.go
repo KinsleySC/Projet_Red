@@ -1,10 +1,10 @@
 package piscine
 
 import (
-    "bufio"
-    "fmt"
-    "os"
-    "strings"
+	"bufio"
+	"fmt"
+	"os"
+	"strings"
 )
 
 type Inventaire struct {
