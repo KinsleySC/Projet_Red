@@ -14,6 +14,7 @@ func initCharacter(genre, name, classe string, level, hpMax, currentHp int, inve
 		HpMax:     hpMax,
 		CurrentHp: currentHp,
 		Inventory: inventory,
+		Skills:    []string{"Coup de poing"},
 	}
 }
 
@@ -26,6 +27,7 @@ func displayInfo(c Character) {
 	for item, qty := range c.Inventory {
 		fmt.Printf("%s : %d\n", item, qty)
 	}
+	fmt.Println("Compétences :", c.Skills)
 }
 
 func accessInventory(c Character) {
@@ -86,6 +88,31 @@ func poisonPot(c *Character) {
 	isDead(c)
 }
 
+func spellBook(c *Character, spell string) {
+	for _, s := range c.Skills {
+		if s == spell {
+			fmt.Printf("Le sort %s est déjà appris !\n", spell)
+			return
+		}
+	}
+	c.Skills = append(c.Skills, spell)
+	fmt.Printf("Nouveau sort appris : %s\n", spell)
+}
+
+func useSpellBook(c *Character) {
+	qty, exists := c.Inventory["Livre de sort : Boule de feu"]
+	if !exists || qty <= 0 {
+		fmt.Println("Vous n'avez pas de livre de sort : Boule de feu")
+		return
+	}
+	c.Inventory["Livre de sort : Boule de feu"]--
+	if c.Inventory["Livre de sort : Boule de feu"] == 0 {
+		delete(c.Inventory, "Livre de sort : Boule de feu")
+	}
+
+	spellBook(c, "Boule de feu")
+}
+
 func main() {
 	var playerName string
 	fmt.Print("Entrez le nom de votre personnage : ")
@@ -108,4 +135,6 @@ func main() {
 	takePot(&c1)
 
 	poisonPot(&c1)
+
+	useSpellBook(&c1)
 }

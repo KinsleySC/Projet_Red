@@ -8,4 +8,5 @@ type Character struct {
 	HpMax     int
 	CurrentHp int
 	Inventory map[string]int
+	Skills    []string
 }
