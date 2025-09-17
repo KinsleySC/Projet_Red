@@ -115,6 +115,18 @@ func useSpellBook(c *Character) {
 	spellBook(c, "Boule de feu")
 }
 
+func totalInventory(c *Character) int {
+	total := 0
+	for _, qty := range c.Inventory {
+		total += qty
+	}
+	return total
+}
+
+func canAddItem(c *Character, qtyToAdd int) bool {
+	return totalInventory(c)+qtyToAdd <= 10
+}
+
 func characterCreation() Character {
 	reader := bufio.NewReader(os.Stdin)
 	var name, class string
@@ -192,4 +204,12 @@ func main() {
 
 	poisonPot(&c1, enemy)
 	useSpellBook(&c1)
+
+	fmt.Println("\nTentative d'ajout d'une potion...")
+	if canAddItem(&c1, 1) {
+		c1.Inventory["Potion"]++
+		fmt.Println("Potion ajoutée à l'inventaire.")
+	} else {
+		fmt.Println("Inventaire plein !")
+	}
 }
