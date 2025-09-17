@@ -54,7 +54,7 @@ func isDead(c *Character) {
 	if c.CurrentHp <= 0 {
 		fmt.Println("Vous êtes mort... ")
 		c.CurrentHp = c.HpMax / 2
-		fmt.Println("Vous êtes ressuscité avec %d / %d PV.\n", c.CurrentHp, c.HpMax)
+		fmt.Printf("Vous êtes ressuscité avec %d / %d PV.\n", c.CurrentHp, c.HpMax)
 	}
 }
 
