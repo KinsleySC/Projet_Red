@@ -10,3 +10,9 @@ type Character struct {
 	Inventory map[string]int
 	Skills    []string
 }
+
+type Enemy struct {
+	Name      string
+	HpMax     int
+	CurrentHp int
+}
