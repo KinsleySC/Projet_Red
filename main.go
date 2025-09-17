@@ -1,8 +1,12 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
+	"os"
+	"strings"
 	"time"
+	"unicode"
 )
 
 func initCharacter(genre, name, classe string, level, hpMax, currentHp int, inventory map[string]int) Character {
@@ -51,7 +55,6 @@ func takePot(c *Character) {
 	if c.CurrentHp > c.HpMax {
 		c.CurrentHp = c.HpMax
 	}
-
 	fmt.Printf("Vous avez utilisé une potion. PV actuels : %d / %d\n", c.CurrentHp, c.HpMax)
 }
 
@@ -73,23 +76,18 @@ func poisonPot(c *Character, target Enemy) {
 	if c.Inventory["Potion de poison"] == 0 {
 		delete(c.Inventory, "Potion de poison")
 	}
-
 	fmt.Println("Vous avez utilisé une potion de poison.")
-
 	for i := 1; i <= 3; i++ {
 		time.Sleep(1 * time.Second)
 		target.CurrentHp -= 10
 		if target.CurrentHp < 0 {
 			target.CurrentHp = 0
 		}
-		fmt.Printf("Dégâts de poison : %s - PV actuels %d / %d\n",
-			target.Name, target.CurrentHp, target.HpMax)
+		fmt.Printf("Dégâts de poison : %s - PV actuels %d / %d\n", target.Name, target.CurrentHp, target.HpMax)
 	}
-
 	if target.CurrentHp == 0 {
 		fmt.Printf("%s est mort empoisonné !\n", target.Name)
 	}
-
 	isDead(c)
 }
 
@@ -114,14 +112,46 @@ func useSpellBook(c *Character) {
 	if c.Inventory["Livre de sort : Boule de feu"] == 0 {
 		delete(c.Inventory, "Livre de sort : Boule de feu")
 	}
-
 	spellBook(c, "Boule de feu")
 }
 
-func main() {
-	var playerName string
-	fmt.Print("Entrez le nom de votre personnage : ")
-	fmt.Scanln(&playerName)
+func characterCreation() Character {
+	reader := bufio.NewReader(os.Stdin)
+	var name, class string
+
+	for {
+		fmt.Print("Entrez le nom de votre personnage : ")
+		input, _ := reader.ReadString('\n')
+		name = strings.TrimSpace(input)
+		if isAlpha(name) && name != "" {
+			name = formatName(name)
+			break
+		}
+		fmt.Println("Nom invalide. Veuillez utiliser uniquement des lettres.")
+	}
+
+	for {
+		fmt.Print("Choisissez une classe (Humain, Elfe, Nain) : ")
+		input, _ := reader.ReadString('\n')
+		class = strings.TrimSpace(strings.Title(strings.ToLower(input)))
+		if class == "Humain" || class == "Elfe" || class == "Nain" {
+			break
+		}
+		fmt.Println("Classe invalide. Veuillez choisir parmi : Humain, Elfe, Nain.")
+	}
+
+	var hpMax int
+	switch class {
+	case "Humain":
+		hpMax = 100
+	case "Elfe":
+		hpMax = 80
+	case "Nain":
+		hpMax = 120
+	}
+
+	currentHp := hpMax / 2
+	genre := "Homme"
 
 	inv := map[string]int{
 		"Potion":                       3,
@@ -129,15 +159,29 @@ func main() {
 		"Livre de sort : Boule de feu": 1,
 	}
 
-	c1 := initCharacter("Homme", playerName, "Elfe", 1, 100, 40, inv)
+	return initCharacter(genre, name, class, 1, hpMax, currentHp, inv)
+}
 
+func isAlpha(s string) bool {
+	for _, r := range s {
+		if !unicode.IsLetter(r) {
+			return false
+		}
+	}
+	return true
+}
+
+func formatName(name string) string {
+	name = strings.ToLower(name)
+	return strings.ToUpper(string(name[0])) + name[1:]
+}
+
+func main() {
+	c1 := characterCreation()
 	displayInfo(c1)
-
 	accessInventory(c1)
-
 	c1.CurrentHp = 0
 	isDead(&c1)
-
 	takePot(&c1)
 
 	enemy := Enemy{
@@ -147,6 +191,5 @@ func main() {
 	}
 
 	poisonPot(&c1, enemy)
-
 	useSpellBook(&c1)
 }
