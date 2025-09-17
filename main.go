@@ -48,6 +48,15 @@ func takePot(c *Character) {
 	}
 	fmt.Printf("")
 }
+
+func isDead(c *Character) {
+	if c.CurrentHp <= 0 {
+		fmt.Println("Vous êtes mort... ")
+		c.CurrentHp = c.HpMax / 2
+		fmt.Println("Vous êtes ressuscité avec %d / %d PV.\n", c.CurrentHp, c.HpMax)
+	}
+}
+
 func main() {
 	var playerName string
 	fmt.Print("Entrez le nom de votre personnage : ")
@@ -60,4 +69,7 @@ func main() {
 	displayInfo(c1)
 
 	accessInventory(c1)
+
+	c1.CurrentHp = 0
+	isDead(&c1)
 }
