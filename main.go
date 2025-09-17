@@ -63,7 +63,7 @@ func isDead(c *Character) {
 	}
 }
 
-func poisonPot(c *Character) {
+func poisonPot(c *Character, target Enemy) {
 	qty, exists := c.Inventory["Potion de poison"]
 	if !exists || qty <= 0 {
 		fmt.Println("Vous n'avez pas de potion de poison !")
@@ -78,11 +78,16 @@ func poisonPot(c *Character) {
 
 	for i := 1; i <= 3; i++ {
 		time.Sleep(1 * time.Second)
-		c.CurrentHp -= 10
-		if c.CurrentHp < 0 {
-			c.CurrentHp = 0
+		target.CurrentHp -= 10
+		if target.CurrentHp < 0 {
+			target.CurrentHp = 0
 		}
-		fmt.Printf("Dégâts de poison %d : PV actuels %d / %d\n", i, c.CurrentHp, c.HpMax)
+		fmt.Printf("Dégâts de poison : %s - PV actuels %d / %d\n",
+			target.Name, target.CurrentHp, target.HpMax)
+	}
+
+	if target.CurrentHp == 0 {
+		fmt.Printf("%s est mort empoisonné !\n", target.Name)
 	}
 
 	isDead(c)
@@ -119,8 +124,9 @@ func main() {
 	fmt.Scanln(&playerName)
 
 	inv := map[string]int{
-		"Potion":           3,
-		"Potion de poison": 1,
+		"Potion":                       3,
+		"Potion de poison":             1,
+		"Livre de sort : Boule de feu": 1,
 	}
 
 	c1 := initCharacter("Homme", playerName, "Elfe", 1, 100, 40, inv)
@@ -134,7 +140,13 @@ func main() {
 
 	takePot(&c1)
 
-	poisonPot(&c1)
+	enemy := Enemy{
+		Name:      "Gobelin",
+		HpMax:     50,
+		CurrentHp: 50,
+	}
+
+	poisonPot(&c1, enemy)
 
 	useSpellBook(&c1)
 }
