@@ -1,31 +1,31 @@
-package piscine
+package main
 
 import (
 	"fmt"
 )
 
-var inv Inventaire
-
 // Endroit des prix des items
 var items = map[string]int{
-	"Potion de vie":                  17,
-	"Potion de poison":               6,
-	"Boule d'électricité":            25,
-	"Armure amovible adaptative":    4,
-	"Blaster lazer":                  7,
+	"Potion de vie":                     17,
+	"Potion de poison":                  6,
+	"Boule d'électricité":               2,
+	"Armure amovible adaptative":        34,
+	"Blaster lazer":                     27,
 	"Armes de désintégration intégrale": 200,
-	"Plume d’oiseaux célestes":      1,
+	"Plume d’oiseaux célestes":          20,
+	"Pistolet Nucléaire":                80,
 }
 
 // Stock initial : 5 exemplaires de chaque item
 var stock = map[string]int{
-	"Potion de vie":                  5,
-	"Potion de poison":               5,
-	"Boule d'électricité":            5,
-	"Armure amovible adaptative":    5,
-	"Blaster lazer":                  5,
+	"Potion de vie":                     5,
+	"Potion de poison":                  5,
+	"Boule d'électricité":               5,
+	"Armure amovible adaptative":        5,
+	"Blaster lazer":                     5,
 	"Armes de désintégration intégrale": 5,
-	"Plume d’oiseaux célestes":      5,
+	"Plume d’oiseaux célestes":          5,
+	"Pistolet Nucléaire":                5,
 }
 
 // AcheterItem essaie d'acheter un item si le joueur a assez de pièces et si l'objet est en stock
@@ -59,4 +59,8 @@ func AcheterItem(inventaire *Inventaire, nomItem string, piecesOr *int) {
 	fmt.Printf("Vous avez acheté : %s\n", nomItem)
 	fmt.Printf("Il vous reste %d pièces d’or.\n", *piecesOr)
 	fmt.Printf("Stock restant de \"%s\" : %d\n", nomItem, stock[nomItem])
+}
+func DoesItemExist(object string) bool {
+	_, exists := items[object]
+	return exists
 }
