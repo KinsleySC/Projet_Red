@@ -42,7 +42,6 @@ func (m *Menu) AddItem(option string, id interface{}) *Menu {
 		Text: fmt.Sprintf("%d: %s", len(m.MenuItems)+1, option),
 		ID:   id,
 	}
-
 	m.MenuItems = append(m.MenuItems, menuItem)
 	return m
 }
