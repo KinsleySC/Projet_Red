@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
 func initCharacter(genre, name, classe string, level, hpMax, currentHp int, inventory map[string]int) Character {
 	return Character{
@@ -58,12 +61,40 @@ func isDead(c *Character) {
 	}
 }
 
+func poisonPot(c *Character) {
+	qty, exists := c.Inventory["Potion de poison"]
+	if !exists || qty <= 0 {
+		fmt.Println("Vous n'avez pas de potion de poison !")
+		return
+	}
+	c.Inventory["Potion de poison"]--
+	if c.Inventory["Potion de poison"] == 0 {
+		delete(c.Inventory, "Potion de poison")
+	}
+
+	fmt.Println("Vous avez utilisé une potion de poison.")
+
+	for i := 1; i <= 3; i++ {
+		time.Sleep(1 * time.Second)
+		c.CurrentHp -= 10
+		if c.CurrentHp < 0 {
+			c.CurrentHp = 0
+		}
+		fmt.Printf("Dégâts de poison %d : PV actuels %d / %d\n", i, c.CurrentHp, c.HpMax)
+	}
+
+	isDead(c)
+}
+
 func main() {
 	var playerName string
 	fmt.Print("Entrez le nom de votre personnage : ")
 	fmt.Scanln(&playerName)
 
-	inv := map[string]int{"Potion": 3}
+	inv := map[string]int{
+		"Potion":           3,
+		"Potion de poison": 1,
+	}
 
 	c1 := initCharacter("Homme", playerName, "Elfe", 1, 100, 40, inv)
 
@@ -73,4 +104,8 @@ func main() {
 
 	c1.CurrentHp = 0
 	isDead(&c1)
+
+	takePot(&c1)
+
+	poisonPot(&c1)
 }
