@@ -201,7 +201,7 @@ func formatName(name string) string {
 	return strings.ToUpper(string(name[0])) + name[1:]
 }
 
-func main() {
+func init_user() {
 	c1 := characterCreation()
 	displayInfo(c1)
 	displayEquipment(c1)
