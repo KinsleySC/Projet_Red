@@ -19,6 +19,11 @@ func initCharacter(genre, name, classe string, level, hpMax, currentHp int, inve
 		CurrentHp: currentHp,
 		Inventory: inventory,
 		Skills:    []string{"Coup de poing"},
+		Equipment: Equipment{
+			Head:  "Casque en fer",
+			Torso: "Armure légère",
+			Feet:  "Bottes en cuir",
+		},
 	}
 }
 
@@ -32,6 +37,14 @@ func displayInfo(c Character) {
 		fmt.Printf("%s : %d\n", item, qty)
 	}
 	fmt.Println("Compétences :", c.Skills)
+}
+
+func displayEquipment(c Character) {
+	fmt.Println("Équipement :")
+	fmt.Printf("Tête : %s\n", c.Equipment.Head)
+	fmt.Printf("Torse : %s\n", c.Equipment.Torso)
+	fmt.Printf("Pieds : %s\n", c.Equipment.Feet)
+
 }
 
 func accessInventory(c Character) {
@@ -191,6 +204,7 @@ func formatName(name string) string {
 func main() {
 	c1 := characterCreation()
 	displayInfo(c1)
+	displayEquipment(c1)
 	accessInventory(c1)
 	c1.CurrentHp = 0
 	isDead(&c1)
@@ -198,8 +212,8 @@ func main() {
 
 	enemy := Enemy{
 		Name:      "Gobelin",
-		HpMax:     50,
-		CurrentHp: 50,
+		HpMax:     40,
+		CurrentHp: 40,
 	}
 
 	poisonPot(&c1, enemy)
