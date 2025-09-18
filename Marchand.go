@@ -5,7 +5,7 @@ import (
 )
 
 // Endroit des prix des items
-var items = map[string]int{
+var Items = map[string]int{
 	"Potion de vie":                     17,
 	"Potion de poison":                  6,
 	"Boule d'électricité":               2,
@@ -30,7 +30,7 @@ var stock = map[string]int{
 
 // AcheterItem essaie d'acheter un item si le joueur a assez de pièces et si l'objet est en stock
 func AcheterItem(inventaire *Inventaire, nomItem string, piecesOr *int) {
-	prix, existe := items[nomItem]
+	prix, existe := Items[nomItem]
 	if !existe {
 		fmt.Println("Cet objet n'existe pas dans la boutique.")
 		return
@@ -61,6 +61,6 @@ func AcheterItem(inventaire *Inventaire, nomItem string, piecesOr *int) {
 	fmt.Printf("Stock restant de \"%s\" : %d\n", nomItem, stock[nomItem])
 }
 func DoesItemExist(object string) bool {
-	_, exists := items[object]
+	_, exists := Items[object]
 	return exists
 }

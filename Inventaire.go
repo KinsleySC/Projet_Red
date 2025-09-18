@@ -50,7 +50,7 @@ func (inv *Inventaire) Ajouter(objet string) {
 	}
 
 	inv.objets = append(inv.objets, objet)
-	fmt.Printf("%s ajouté à l'inventaire.\n", objet)
+	fmt.Printf("%s a était acheté.\n", objet)
 }
 
 func (inv *Inventaire) Supprimer(objet string) {
@@ -77,4 +77,16 @@ func (inv *Inventaire) Afficher() {
 	for i, obj := range inv.objets {
 		fmt.Printf("%d. %s\n", i+1, obj)
 	}
+}
+
+
+func Inventaire2() {
+	inv := NouveauInventaire(10) // limite fixée à 10 objets
+
+	// Test : on essaie d'ajouter 12 objets
+	for i := 1; i <= 12; i++ {
+		inv.Ajouter(fmt.Sprintf("Objet%d", i))
+	}
+
+	inv.Afficher()
 }

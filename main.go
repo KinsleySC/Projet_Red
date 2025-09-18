@@ -11,7 +11,7 @@ func main() {
 	inv := NouveauInventaire(10)
 	scanner := bufio.NewScanner(os.Stdin)
 
-	fmt.Println("Bienvenue dans le jeu ! Tape 'help' pour les commandes.")
+	fmt.Println("Bienvenue dans le jeu ! Tape 'commandes' pour afficher les commandes.")
 
 	for {
 		fmt.Print("> ")
@@ -23,12 +23,20 @@ func main() {
 		cmd := strings.ToLower(args[0])
 
 		switch cmd {
-		case "help":
-			fmt.Println("Commandes : open (ouvrir inventaire), close (fermer inventaire), acheter <objet>, jetter, show (afficher), quit (quitter)")
+		case "commandes":
+			fmt.Println("Commandes : open (ouvrir inventaire), close (fermer inventaire),boutique, jetter, afficher, quitter, banque")
 		case "open":
 			inv.Ouvrir()
 		case "close":
 			inv.Fermer()
+		case "boutique":
+			for k, v := range Items {
+				fmt.Printf("%s: %d\n", k, v)
+			}
+		case "banque":
+			{
+				print("bienvenu dans la banque vous possedez <argent")
+			}
 		case "acheter":
 			if len(args) < 2 {
 				fmt.Println("Usage : acheter <objet>")
@@ -43,13 +51,13 @@ func main() {
 			}
 			objet := strings.Join(args[1:], " ")
 			inv.Supprimer(objet)
-		case "show":
+		case "afficher":
 			inv.Afficher()
-		case "quit":
+		case "quitter":
 			fmt.Println("Au revoir !")
 			return
 		default:
-			fmt.Println("Commande inconnue, tapez 'help' pour la liste.")
+			fmt.Println("Commande inconnue, tapez 'commandes' pour la liste.")
 		}
 	}
 }
