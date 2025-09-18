@@ -79,7 +79,6 @@ func (inv *Inventaire) Afficher() {
 	}
 }
 
-
 func Inventaire2() {
 	inv := NouveauInventaire(10) // limite fixée à 10 objets
 
