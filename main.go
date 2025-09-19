@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-func main() {
+func Start_workshop() {
 	inv := NouveauInventaire(10)
 	scanner := bufio.NewScanner(os.Stdin)
 
@@ -60,4 +60,8 @@ func main() {
 			fmt.Println("Commande inconnue, tapez 'commandes' pour la liste.")
 		}
 	}
+}
+
+func main() {
+	MainMenu()
 }

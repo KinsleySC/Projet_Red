@@ -57,6 +57,7 @@ func SubStart() {
 			MainMenu()
 		}
 		if v == 1 {
+			Start_CreationOfCharacter()
 		}
 	case string:
 		fmt.Printf("Selected option: %s\n\n", v)
