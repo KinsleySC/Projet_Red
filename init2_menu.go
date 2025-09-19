@@ -56,15 +56,13 @@ func SubStart() {
 		if v == 2 {
 			MainMenu()
 		}
+		if v == 1 {
+		}
 	case string:
 		fmt.Printf("Selected option: %s\n\n", v)
 	default:
 		fmt.Printf("Selected option of unexpected type: %T with value: %v\n", result1, result1)
 	}
-}
-
-func Start_GMenu() {
-
 }
 
 //func SubOption() {
