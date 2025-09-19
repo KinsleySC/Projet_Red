@@ -1,4 +1,4 @@
-package piscine
+package main
 
 type Monster struct {
 	name         string
