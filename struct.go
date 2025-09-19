@@ -1,4 +1,4 @@
-package piscine
+package main
 
 type Monster struct {
 	name         string
@@ -11,8 +11,8 @@ type Character struct {
 	genre      string
 	name       string
 	classe     string
-	level      string
-	hp_max     string
-	current_hp string
+	level      int
+	hp_max     int
+	current_hp int
 	inventory  string
 }

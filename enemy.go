@@ -1,11 +1,14 @@
-package piscine
+package main
 
-func initGoblin() {
+func initGoblin() Monster {
 	monster := Monster{"Gobelin d'entraînement", 40, 40, 5}
+	return monster
 }
 
 func goblinPattern() {
-	for i := 0; i < 3; i++ {
-		initGoblin()
+	initGoblin()
+
+	for i := 0; i <= 6; i++ {
+
 	}
 }
