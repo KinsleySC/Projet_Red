@@ -188,7 +188,7 @@ func formatName(name string) string {
 	return strings.ToUpper(string(name[0])) + name[1:]
 }
 
-func main() {
+func Start_CreationOfCharacter() {
 	c1 := characterCreation()
 	displayInfo(c1)
 	accessInventory(c1)
