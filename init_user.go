@@ -19,11 +19,6 @@ func initCharacter(genre, name, classe string, level, hpMax, currentHp int, inve
 		CurrentHp: currentHp,
 		Inventory: inventory,
 		Skills:    []string{"Coup de poing"},
-		Equipment: Equipment{
-			Head:  "Casque en fer",
-			Torso: "Armure légère",
-			Feet:  "Bottes en cuir",
-		},
 	}
 }
 
@@ -39,14 +34,6 @@ func displayInfo(c Character) {
 	fmt.Println("Compétences :", c.Skills)
 }
 
-func displayEquipment(c Character) {
-	fmt.Println("Équipement :")
-	fmt.Printf("Tête : %s\n", c.Equipment.Head)
-	fmt.Printf("Torse : %s\n", c.Equipment.Torso)
-	fmt.Printf("Pieds : %s\n", c.Equipment.Feet)
-
-}
-
 func accessInventory(c Character) {
 	fmt.Println("Objets dans l'inventaire :")
 	for item, qty := range c.Inventory {
@@ -55,20 +42,20 @@ func accessInventory(c Character) {
 }
 
 func takePot(c *Character) {
-	qty, exists := c.Inventory["Potion"]
+	qty, exists := c.Inventory["Potion de soin"]
 	if !exists || qty <= 0 {
 		fmt.Println("Vous n'avez pas de potion !")
 		return
 	}
-	c.Inventory["Potion"]--
-	if c.Inventory["Potion"] == 0 {
-		delete(c.Inventory, "Potion")
+	c.Inventory["Potion de soin"]--
+	if c.Inventory["Potion de soin"] == 0 {
+		delete(c.Inventory, "Potion de soin")
 	}
 	c.CurrentHp += 50
 	if c.CurrentHp > c.HpMax {
 		c.CurrentHp = c.HpMax
 	}
-	fmt.Printf("Vous avez utilisé une potion. PV actuels : %d / %d\n", c.CurrentHp, c.HpMax)
+	fmt.Printf("Vous avez utilisé une potion de soin. PV actuels : %d / %d\n", c.CurrentHp, c.HpMax)
 }
 
 func isDead(c *Character) {
@@ -179,7 +166,7 @@ func characterCreation() Character {
 	genre := "Homme"
 
 	inv := map[string]int{
-		"Potion":                       3,
+		"Potion de soin":               3,
 		"Potion de poison":             1,
 		"Livre de sort : Boule de feu": 1,
 	}
@@ -201,10 +188,9 @@ func formatName(name string) string {
 	return strings.ToUpper(string(name[0])) + name[1:]
 }
 
-func init_user() {
+func Start_CreationOfCharacter() {
 	c1 := characterCreation()
 	displayInfo(c1)
-	displayEquipment(c1)
 	accessInventory(c1)
 	c1.CurrentHp = 0
 	isDead(&c1)
@@ -219,10 +205,10 @@ func init_user() {
 	poisonPot(&c1, enemy)
 	useSpellBook(&c1)
 
-	fmt.Println("\nTentative d'ajout d'une potion...")
+	fmt.Println("\nTentative d'ajout d'une potion de soin...")
 	if canAddItem(&c1, 1) {
-		c1.Inventory["Potion"]++
-		fmt.Println("Potion ajoutée à l'inventaire.")
+		c1.Inventory["Potion de soin"]++
+		fmt.Println("Potion de soin ajoutée à l'inventaire.")
 	} else {
 		fmt.Println("Inventaire plein !")
 	}
